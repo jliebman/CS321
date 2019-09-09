@@ -1,0 +1,101 @@
+\documentclass{article}
+%packages
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{mdwlist}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb,hyperref}
+\usepackage{graphicx}
+%end packages
+
+%environments
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+%end environment
+
+\begin{document}
+\large
+\large Page 1
+\begin{center}
+{\Large Andrew Marek}
+\end{center}
+\vspace{0.05in}
+
+\begin{enumerate}
+%Problem 1.2 
+\item \textit{The eight great ideas in computer architecture are similar to ideas from other fields. Match the eight ideas from computer architecture, “Design for Moore’s Law,” “Use Abstraction to Simplify Design,” “Make the Common Case Fast,” “Performance via Parallelism,” “Performance via Pipelining,” “Performance via Prediction,” “Hierarchy of Memories,” and “Dependability via Redundancy” to the following ideas from other fields:}
+\begin{enumerate}
+    \item Assembly lines in automobile manufacturing: "Performance via Pipelining"
+    \item Suspension bridge cables: "Performance via Parallelism"
+    \item Aircraft and marine navigation systems that incorporate wind information: "Use Abstraction to Simplify Design"
+    \item Express elevators in buildings: "Make the Common Case fast"
+    \item Library reserve desk: "Hierarchy of Memories"
+    \item Increasing the gate area on a CMOS transistor to decrease its switching time: "Design for Moore's Law"
+    \item Adding electromagnetic aircraft catapults (which are electrically powered as opposed to current steam-powered models), allowed by the increased power generation offered by the new reactor technology: "Dependability via Reliability"
+    \item Building self-driving cars whose control systems partially rely on existing sensor systems already installed into the base vehicle, such as lane departure systems and smart cruise control systems: "Performance via prediction"
+\end{enumerate}
+%Problem 1.3
+\item \textit{Describe the steps that transform a program written in a high-level language such as C into a representation that is directly executed by a computer processor:}\\ Someone writes a program in a high-level language, that program gets compiled (by a compiler) into assembly language of the respective device.  The assembly language then gets "assembled" into binary machine language that something like a processor can read.
+
+%Problem 1.4
+\item Assume a color display using 8 bits for each of the primary colors (red, green, blue) per pixel and a frame size of 1280 × 1024:
+\begin{enumerate}
+    \item What is the minimum size in bytes of the frame buffer to store a frame?:\\
+         8 bits = 1 byte\\
+         1280x1024 = 1310720 pixels\\
+         1310720 pixels per frame / 8 bits = \\
+         \textbf{163840 bytes per frame minimum.}
+    \item How long would it take, at a minimum, for the frame to be sent over a 100 Mbit/s network?:\\
+        1 Megabit (Mb) = 1000000 bits\\
+        (1310720 * 8) bits per frame / 1000000 bits / sec = \\
+        \textbf{10.48 sec}
+\end{enumerate}
+%Problem 1.5
+\item Consider three different processors P1, P2, and P3 executing the same instruction set. P1 has a 3GHz clock rate and a CPI of 1.5. P2 has a 2.5GHz clock rate and a CPI of 1.0. P3 has a 4.0GHz clock rate and has a CPI of 2.2:
+\begin{enumerate}
+    \item Which processor has the highest performance expressed in instructions per second?\\
+    Instructions / sec = Clock rate / CPI
+    \begin{enumerate}
+        \item P1 = 3GHz / 1.5 = \textbf{2,000,000 IPS}
+        \item P2 = 2.5 GHz / 1.0 = \textbf{2,500,000 IPS}
+        \item P3 = 4.0GHz / 2.2 = \textbf{1818181818.18 IPS}
+    \end{enumerate}
+    \textbf{Therefore, P2 has the highest performance expressed in \textit{instructions per second.}}
+    \item If the processors each execute a program in 10 seconds, find the number of cycles and the number of instructions:
+    \begin{enumerate}
+        \item P1 \begin{itemize}
+            \item 3GHz * 10 seconds = \textbf{30,000,000 cycles.}
+            \item 2,000,000 IPS * 10 = \textbf{20,000,000 instructions.}
+        \end{itemize}
+        \item P2 \begin{itemize}
+            \item 2.5GHz * 10 seconds = \textbf{25,000,000 cycles. }
+            \item 2,500,000 IPS * 10 = \textbf{25,000,000 instructions.}
+        \end{itemize}
+        \item P3 \begin{itemize}
+            \item 4.0 GHz * 10 seconds = \textbf{40,000,000 cycles.}
+            \item 1818181818.18 IPS * 10 seconds = \textbf{18181818181.818 instructions.}
+        \end{itemize}
+    \end{enumerate}
+    \item We are trying to reduce the execution time by 30\%, but this leads to an increase of 20\% in the CPI. What clock rate should we have to get this time reduction?
+    
+\end{enumerate}
+%Problem 1.7
+\item Compilers can have a profound impact on the performance of an application. Assume that for a program, compiler A results in a dynamic instruction count of 1.0E9 and has an execution time of 1.1s, while compiler B results in a dynamic instruction count of 1.2E9 and an execution time of 1.5 s.
+\begin{enumerate}
+    \item Find the average CPI for each program given the processor has a clock cycle time of 1 ns:
+    \item Assume the compiled programs run on two different processors. If the execution times on the two processors are the same, how much faster is the clock of the processor running compiler A’s code versus the clock of the processor running compiler B’s code?:
+    \item A new compiler is developed that uses only 6.0E8 instructions and has an average CPI of 1.1. What is the speedup of using this new compiler versus using compiler A or B on the original processor?:
+\end{enumerate}
+%Problem 1.9
+\item Assume for arithmetic, load/store, and branch instructions, a processor has CPIs of 1, 12, and 5, respectively. Also assume that on a single processor a program requires the execution of 2.56E9 arithmetic instructions, 1.28E9 load/store instructions, and 256 million branch instructions. Assume that each processor has a 2 GHz clock frequency.
+Assume that, as the program is parallelized to run over multiple cores, the number of arithmetic and load/store instructions per processor is divided by 0.7 × p (where p is the number of processors) but the number of branch instructions per processor remains the same.:
+%Problem 1.10
+\item Assume a 15 cm diameter wafer has a cost of 12, contains 84 dies, and has 0.020 defects/cm2. Assume a 20 cm diameter wafer has a cost of 15, contains 100 dies, and has 0.031 defects/cm2.:
+%Problem 1.12
+\item Section 1.10 cites as a pitfall the utilization of a subset of the performance equation as a performance metric. To illustrate this, consider the following two processors. P1 has a clock rate of 4GHz, average CPI of 0.9, and requires the execution of 5.0E9 instructions. P2 has a clock rate of 3GHz, an average CPI of 0.75, and requires the execution of 1.0E9 instructions.:
+%Problem 1.15
+\item When a program is adapted to run on multiple processors in a multiprocessor system, the execution time on each processor is comprised of computing time and the overhead time required for locked critical sections and/or to send data from one processor to another.
+Assume a program requires t = 100 s of execution time on one processor. When run p processors, each processor requires t/p s, as well as an additional 4 s of overhead, irrespective of the number of processors. Compute the per-processor execution time for 2, 4, 8, 16, 32, 64, and 128 processors. For each case, list the corresponding speedup relative to a single processor and the ratio between actual speedup versus ideal speedup (speedup if there was no overhead).: 
+\end{enumerate}
+\end{document}
