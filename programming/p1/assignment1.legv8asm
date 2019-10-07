@@ -1,1 +1,28 @@
+main:
+    LDUR X1, [SP, #8] 
+    LDUR X2, [SP, #6]
+    
+    
 
+    BL swap
+
+swap: // parameters in x1 (int 0) and x2 (int 1)
+    // Step one
+    SUBI SP, SP, #8     // Make space for one doubleword 
+    STUR LR, [SP, #0]   // Save register LR ? 
+
+    // Perform procedure 
+    LDUR X9, [X1, #0]
+  	LDUR X10, [X2, #0]
+  	STUR X10, [X1, #0]
+  	STUR X9, [X2, #0]
+
+    // Put result in place
+    LDUR X9, [SP, #0]   // Restore register
+    ADDI SP, SP, #8     // Adjust stack
+
+    // DUMP 
+    BR X9
+
+exit:
+    DUMP
