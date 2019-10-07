@@ -1,28 +1,56 @@
+//Jake Liebman
+//Andrew Marek
 main:
-    LDUR X1, [SP, #8] 
-    LDUR X2, [SP, #6]
-    
-    
+MOVZ X0, #20, LSL #0 //Make an array of numbers from 1-20
+BL arraybuilder
+DUMP
+MOVZ X1, #16, LSL #0 //SWAP PARAM X1 is now the value in main memory 3
+MOVZ X2, #8, LSL #0 //SWAP PARAM X2 is now the value in main memory 2
+DUMP
+BL swap
+DUMP
+B end
 
-    BL swap
+//END
+end:
 
-swap: // parameters in x1 (int 0) and x2 (int 1)
-    // Step one
-    SUBI SP, SP, #8     // Make space for one doubleword 
-    STUR LR, [SP, #0]   // Save register LR ? 
+//ARRAYBUILDER
+//X0 is arr length
+arraybuilder: 
+SUBI SP, SP, #8
+STUR LR, [SP, #0]
+MOVZ X14, #0, LSL #0
+MOVZ X15, #0, LSL #0
 
-    // Perform procedure 
-    LDUR X9, [X1, #0]
-  	LDUR X10, [X2, #0]
-  	STUR X10, [X1, #0]
-  	STUR X9, [X2, #0]
+buildloop:
+SUBS X16, X15, X0
+B.GT arrend
 
-    // Put result in place
-    LDUR X9, [SP, #0]   // Restore register
-    ADDI SP, SP, #8     // Adjust stack
+ADDI X9, X15, #1
+STUR X9, [X14, #0] 
+ADDI X15, X15, #1
+ADDI X14, X14, #8
 
-    // DUMP 
-    BR X9
+B buildloop
 
-exit:
-    DUMP
+arrend: 
+LDUR X9, [SP, #0]
+ADDI SP, SP, #8
+BR LR
+
+
+//SWAP
+//Swap Values in X1 and X2
+swap:
+SUBI SP, SP, #8
+STUR LR, [SP, #0]
+LDUR X9, [X1, #0]
+LDUR X10, [X2, #0]
+STUR X10, [X1, #0]
+STUR X9, [X2, #0]
+LDUR X9, [SP, #0]
+ADDI SP, SP, #8
+BR LR
+
+done:
+DUMP
