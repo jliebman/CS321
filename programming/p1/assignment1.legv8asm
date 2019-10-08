@@ -3,11 +3,12 @@
 main:
 MOVZ X0, #20, LSL #0 //Make an array of numbers from 1-20
 BL arraybuilder
-DUMP
-MOVZ X1, #16, LSL #0 //SWAP PARAM X1 is now the value in main memory 3
-MOVZ X2, #8, LSL #0 //SWAP PARAM X2 is now the value in main memory 2
-DUMP
+MOVZ X1, #16, LSL #0 //SWAP PARAM X1 is now the value in main memory 3 
+MOVZ X2, #32, LSL #0 //SWAP PARAM X2 is now the value in main memory 2
 BL swap
+MOVZ X0, #0, LSL #0
+MOVZ X1, #160, LSL #0
+BL findsmall
 DUMP
 B end
 
@@ -26,7 +27,7 @@ buildloop:
 SUBS X16, X15, X0
 B.GT arrend
 
-ADDI X9, X15, #1
+ADDI X9, X15, #20
 STUR X9, [X14, #0] 
 ADDI X15, X15, #1
 ADDI X14, X14, #8
@@ -52,5 +53,43 @@ LDUR X9, [SP, #0]
 ADDI SP, SP, #8
 BR LR
 
-done:
-DUMP
+//FIND SMALLEST
+//ARRAYSTART X0, LENGTH X1
+findsmall:
+SUBI SP, SP, #8 // make room on stack pointer 
+STUR LR, [SP, #0] // [SP 0] = LR
+MOVZ X14, #0, LSL #0 //min
+MOVZ X15, #0, LSL #0 //i
+ADD X14, X14, X0 //min index
+ADD X15, X15, X0
+ADDI X15, X15, #8 //Start at right spot, start + i 
+
+//MINLOOP
+minloop:
+SUBS X16, X15, X1
+B.GT minend
+    		  
+LDUR X11, [X15, #0] //item at a[i]
+LDUR X10, [X14, #0] //item at a[Min index]
+PRNT X10
+
+SUBS X16, X10, X11
+B.GT minless
+
+B cont
+
+minless:
+ MOVZ X14, #0, LSL #0 // Value at a[i] is now min
+ ADD X14, X14, X15 
+ 
+
+cont:
+ADDI X15, X15, #8 // increment
+B minloop // GO back to top
+
+minend:
+LDUR X9, [SP, #0]
+ADDI SP, SP, #8
+MOVZ X7, #0, LSL #0
+ADD X7, X7, X10 //Store min value into X7
+BR LR
